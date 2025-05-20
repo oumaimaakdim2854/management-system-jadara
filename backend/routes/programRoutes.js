@@ -8,7 +8,7 @@ const {
     getPrograms,
     updateProgram,
     deleteProgram
-} = require('../controllers/programController');
+} = require('../controllers/programControllers');
 
 router.post('/', protect, isAdmin, createProgram);
 router.get('/', protect, getPrograms);
