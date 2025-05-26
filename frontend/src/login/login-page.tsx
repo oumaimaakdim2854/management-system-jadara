@@ -1,7 +1,10 @@
 import { LoginForm } from "@/components/ui/login-form"
 import image from "@/assets/smta.jpeg"
 
-function Page() {
+
+
+function LoginPage() {
+
     return (
     <>
     <div className="grid min-h-svh lg:grid-cols-2 bg-sky-700">
@@ -25,5 +28,5 @@ function Page() {
 )
 }
 
-export default Page
+export default LoginPage
 
