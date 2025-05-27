@@ -16,5 +16,10 @@ export default defineConfig({
 //       '/api': 'http://localhost:5000'
 //     }
 //   }
+
+    server: {
+    port: 5175
+  }
+  
 })
 
