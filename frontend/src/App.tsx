@@ -2,6 +2,9 @@
 import './App.css'
 import RegisterPage from './app/register/register-page'
 import LoginPage from "./login/login-page"
+import Page from './app/dashboard/page'
+import { ThemeProvider } from "@/components/providers/theme-provider"
+
 import{
   BrowserRouter as Router,
   Routes,
@@ -25,7 +28,13 @@ function App() {
 
         </Routes>
       </Router>
+
+          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Page/>
+    </ThemeProvider>
+      
     </>
+    
   )
 }
 
