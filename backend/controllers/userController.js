@@ -32,4 +32,14 @@ const validateStudent = async (req, res) => {
     }
 };
 
-module.exports = {getUserDetails,validateStudent};
+const getPendingStudents = async (req, res) => {
+    try {
+        const students = await User.find({ role: 'student', isValidated: false }).select('-password');
+        res.json(students);
+    } catch (err) {
+        res.status(500).json({ message: 'Erreur serveur', error: err.message });
+    }
+};
+
+
+module.exports = {getUserDetails,validateStudent,getPendingStudents};
