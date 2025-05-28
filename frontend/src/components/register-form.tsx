@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,6 +16,44 @@ export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match")
+      return
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        alert(data.message || "Registration failed")
+      } else {
+        alert("Account created successfully")
+        navigate("/login")  // redirection ici
+      }
+    } catch (error) {
+      alert("Something went wrong")
+      console.error(error)
+    }
+  }
+
   return (
     <div
       className={cn(
@@ -32,10 +72,10 @@ export function RegisterForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="first-name" className="text-zinc-800 dark:text-gray-300  text-base">
+                <Label htmlFor="first-name" className="text-zinc-800 dark:text-gray-300 text-base">
                   Full Name
                 </Label>
                 <Input
@@ -43,6 +83,8 @@ export function RegisterForm({
                   id="first-name"
                   type="text"
                   placeholder="John Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
@@ -53,9 +95,11 @@ export function RegisterForm({
                 </Label>
                 <Input
                   className="bg-white dark:bg-gray-800 dark:text-white"
-                  id="email"
+                  id="confirm-email"
                   type="email"
                   placeholder="m@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -66,8 +110,10 @@ export function RegisterForm({
                 </Label>
                 <Input
                   className="bg-white dark:bg-gray-800 dark:text-white"
-                  id="password"
+                  id="confirm-password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -80,12 +126,14 @@ export function RegisterForm({
                   className="bg-white dark:bg-gray-800 dark:text-white"
                   id="confirmed-password"
                   type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />
               </div>
 
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full bg-sky-700 hover:bg-sky-900 text-lg font-serif ">
+                <Button type="submit" className="w-full bg-sky-700 hover:bg-sky-900 text-lg font-serif">
                   Sign Up
                 </Button>
               </div>
