@@ -47,7 +47,11 @@ export function LoginForm({
                     localStorage.setItem("token", data.token)
                 }
                 // Redirection
+<<<<<<< HEAD
                 navigate("/")
+=======
+                navigate("/dashboard")
+>>>>>>> 30ba4a193dc8728e318b6118e90eb98597964c85
             }
         } catch (err) {
             setError("Something went wrong. Please try again.")
@@ -142,4 +146,8 @@ export function LoginForm({
             </Card>
         </div>
     )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 30ba4a193dc8728e318b6118e90eb98597964c85
