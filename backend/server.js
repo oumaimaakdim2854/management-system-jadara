@@ -2,14 +2,25 @@ require("dotenv").config();
 
 const connectDB=require("./config/db.js");
 const adminRoutes = require('./routes/adminRoutes');
+const cors = require("cors");
+
 
 connectDB()
 
 const express =require("express");
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT;
 
+
+
+app.use(cors());
+
+
 app.use(express.json());
+
+// Autoriser le frontend à accéder au backend
+app.use(cors());
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
