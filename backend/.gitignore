@@ -3,8 +3,7 @@ config.env
 
 
 package-lock.json/
-<<<<<<< HEAD
+
 node_modules/
-=======
 node_modules/
->>>>>>> 877dfb8c0df4f58176a1fc8d8da1b519e00e76c3
+node_modules/

@@ -1,5 +1,4 @@
 
-// import './App.css'
 // import RegisterPage from './app/Pages/register-page'
 // import LoginPage from "./app/Pages/login-page"
 
@@ -22,6 +21,7 @@ import LoginPage from "./app/Pages/login-page"
 import Page from "./app/Pages/dashboard"
 
 function App() {
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
