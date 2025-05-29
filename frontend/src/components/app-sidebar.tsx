@@ -29,7 +29,7 @@ const data = {
     { title: "Users", url: "/dashboard/users", icon: <Users className="w-4 h-4" /> },
     { title: "Groups", url: "#", icon: <FolderKanban className="w-4 h-4" /> },
     { title: "Events", url: "#", icon: <Calendar className="w-4 h-4" /> },
-    { title: "Programs", url: "#", icon: <FolderKanban className="w-4 h-4" /> },
+    { title: "Programs", url: "/dashboard/programs", icon: <FolderKanban className="w-4 h-4" /> },
   ],
   support: [
     { title: "Settings", url: "#", icon: <Settings className="w-4 h-4" /> },
