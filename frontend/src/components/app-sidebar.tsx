@@ -25,8 +25,8 @@ import {
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   main: [
-    { title: "Dashboard", url: "#", icon: <LayoutDashboard className="w-4 h-4" /> },
-    { title: "Users", url: "#", icon: <Users className="w-4 h-4" /> },
+    { title: "Dashboard", url: "/dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { title: "Users", url: "/dashboard/users", icon: <Users className="w-4 h-4" /> },
     { title: "Groups", url: "#", icon: <FolderKanban className="w-4 h-4" /> },
     { title: "Events", url: "#", icon: <Calendar className="w-4 h-4" /> },
     { title: "Programs", url: "#", icon: <FolderKanban className="w-4 h-4" /> },
