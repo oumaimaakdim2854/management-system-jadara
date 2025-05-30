@@ -1,11 +1,7 @@
 import { LoginForm } from "@/components/login-form"
 import image from "@/assets/smta.jpeg"
 
-<<<<<<< HEAD
-function Page() {
-=======
 function LoginPage() {
->>>>>>> 30ba4a193dc8728e318b6118e90eb98597964c85
     return (
         <div className="grid min-h-svh lg:grid-cols-2 bg-sky-700">
             <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -26,8 +22,4 @@ function LoginPage() {
     )
 }
 
-<<<<<<< HEAD
-export default Page
-=======
 export default LoginPage
->>>>>>> 30ba4a193dc8728e318b6118e90eb98597964c85
