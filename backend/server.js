@@ -20,6 +20,8 @@ app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/programs', require('./routes/programRoutes'));
 app.use('/api/groups', require('./routes/groupRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/users', require('./routes/adminRoutes'));
+
 
 app.listen(port, () => {
     console.log(`Serverur demarre sur le port : ${port}`);
