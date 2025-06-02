@@ -37,6 +37,7 @@ export function LoginForm({
             })
 
             const data = await res.json()
+            console.log("Login Response:", data)
 
             if (!res.ok) {
                 setPassword("")
@@ -45,9 +46,20 @@ export function LoginForm({
                 // Stockage du token si fourni
                 if (data.token) {
                     localStorage.setItem("token", data.token)
+                    localStorage.setItem("name", data.name)
+                    localStorage.setItem("role", data.role)
                 }
                 // Redirection
-                navigate("/dashboard")
+                // Ajoute cette condition ici pour rediriger selon le rôle
+                if (data.role === "admin") {
+                    navigate("/admin/dashboard")
+                } else if (data.role === "student") {
+                    navigate("/student/dashboard")
+                }
+                // else {
+                //     navigate("/dashboard") // Par défaut ou autre rôle
+                // }
+
             }
         } catch (err) {
             setError("Something went wrong. Please try again.")

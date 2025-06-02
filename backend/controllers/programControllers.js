@@ -4,6 +4,8 @@ const Program = require('../models/Programs');
 
 exports.createProgram = async (req, res) => {
     try {
+      console.log("Données reçues dans req.body :", req.body); // 👈 ajoute cette ligne
+
         const program = new Program(req.body);
         await program.save();
         res.status(201).json(program);

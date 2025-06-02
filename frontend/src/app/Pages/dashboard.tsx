@@ -14,10 +14,26 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 // import TableContent from "@/components/table-content"
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 
 export default function Page() {
+
+  const role = localStorage.getItem("role")
+  const navigate = useNavigate()
+
+  // Redirige l’étudiant s’il accède à une route interdite
+  useEffect(() => {
+    if (role === "student") {
+      const path = window.location.pathname
+      if (path.includes("/users")) {
+        navigate("/dashboard/programs")
+      }
+    }
+  }, [role, navigate])
+
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -41,9 +57,8 @@ export default function Page() {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           
-          {/* <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
           <Outlet/>
-          {/* <TableContent/> */}
+          
         </div>
       </SidebarInset>
     </SidebarProvider>
