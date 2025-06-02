@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "react-router-dom"
 import { useState } from "react"
 import {
   Sidebar,
@@ -25,11 +26,11 @@ import {
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   main: [
-    { title: "Dashboard", url: "/dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
-    { title: "Users", url: "/dashboard/users", icon: <Users className="w-4 h-4" /> },
-    { title: "Groups", url: "#", icon: <FolderKanban className="w-4 h-4" /> },
-    { title: "Events", url: "#", icon: <Calendar className="w-4 h-4" /> },
-    { title: "Programs", url: "/dashboard/programs", icon: <FolderKanban className="w-4 h-4" /> },
+    { title: "Dashboard", url: "/admin/dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { title: "Users", url: "/admin/dashboard/users", icon: <Users className="w-4 h-4" /> },
+    { title: "Groups", url: "/admin/dashboard/groups", icon: <FolderKanban className="w-4 h-4" /> },
+    { title: "Events", url: "/admin/dashboard/events", icon: <Calendar className="w-4 h-4" /> },
+    { title: "Programs", url: "/admin/dashboard/programs", icon: <FolderKanban className="w-4 h-4" /> },
   ],
   support: [
     { title: "Settings", url: "#", icon: <Settings className="w-4 h-4" /> },
@@ -40,15 +41,16 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [active, setActive] = useState("Dashboard")
+  const role = localStorage.getItem("role") || "student"
 
   return (
     <Sidebar {...props}>
       <SidebarHeader>
         <a href="http://localhost:5173/login">
           <img
-          src="../public/smta-logo1.png" 
-          alt="My Logo"
-          className="h-10 w-10 rounded-xl"
+            src="../public/smta-logo1.png"
+            alt="My Logo"
+            className="h-10 w-10 rounded-xl"
           />
         </a>
       </SidebarHeader>
@@ -62,30 +64,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {data.main.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      asChild
-                      className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${
-                        active === item.title
-                          ? "bg-muted text-primary"
-                          : "hover:bg-amber-300 hover:text-base"
-                      }`}
-                      onClick={() => setActive(item.title)}
-                    >
-                      <a href={item.url} className="flex items-center gap-2">
-                        {item.icon}
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {role === "admin" &&
+                  data.main.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton
+                        asChild
+                        className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${active === item.title
+                            ? "bg-muted text-primary"
+                            : "hover:bg-amber-300 hover:text-base"
+                          }`}
+                        onClick={() => setActive(item.title)}
+                      >
+                        <Link to={item.url} className="flex items-center gap-2">
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         </div>
 
-        {/* Push Support section to bottom */}
+        {/* Support Section */}
         <div className="mt-auto">
           <SidebarGroup>
             <SidebarGroupLabel className="text-xs uppercase tracking-wider px-4 py-2 text-sky-100 bg-sky-700 rounded">
@@ -96,18 +98,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {data.support.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
-                      asChild
-                      className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${
-                        active === item.title
-                          ? "bg-muted text-primary"
-                          : "hover:bg-amber-300 hover:text-base"
-                      }`}
+                      // asChild
+                      className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${active === item.title
+                        ? "bg-muted text-primary"
+                        : "hover:bg-amber-300 hover:text-base"
+                        }`}
                       onClick={() => setActive(item.title)}
                     >
-                      <a href={item.url} className="flex items-center gap-2">
+                      {/* <a href={item.url} className="flex items-center gap-2"> */}
+                      <Link to={item.url} className="flex items-center gap-2">
+
                         {item.icon}
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -121,3 +124,4 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     </Sidebar>
   )
 }
+
