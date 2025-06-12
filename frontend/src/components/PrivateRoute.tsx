@@ -6,7 +6,8 @@ export const PrivateRoute = ({ children, allowedRoles }: { children: React.React
     const role = localStorage.getItem("role")
 
     if (!token) return <Navigate to="/login" />
-    if (!allowedRoles.includes(role || "")) return <Navigate to="/unauthorized" />
+    if (!allowedRoles.includes(role || "")) 
+        return <Navigate to="/unauthorized" />
 
     return <>{children}</>
 }

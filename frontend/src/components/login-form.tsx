@@ -56,9 +56,6 @@ export function LoginForm({
                 } else if (data.role === "student") {
                     navigate("/student/dashboard")
                 }
-                // else {
-                //     navigate("/dashboard") // Par défaut ou autre rôle
-                // }
 
             }
         } catch (err) {
@@ -68,6 +65,8 @@ export function LoginForm({
             setLoading(false)
         }
     }
+
+
 
     return (
         <div

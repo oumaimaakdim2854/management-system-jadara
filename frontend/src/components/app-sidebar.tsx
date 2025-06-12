@@ -22,6 +22,9 @@ import {
   HelpCircle,
   Search,
 } from "lucide-react"
+import { LogOut } from "lucide-react";
+
+
 
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
@@ -43,16 +46,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [active, setActive] = useState("Dashboard")
   const role = localStorage.getItem("role") || "student"
 
+
+  const confirmLogout = () => {
+    if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
+  }
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <a href="http://localhost:5173/login">
+        <a href="http://localhost:5173/admin/dashboard">
           <img
             src="../public/smta-logo1.png"
             alt="My Logo"
             className="h-10 w-10 rounded-xl"
           />
         </a>
+        <LogOut className="w-5 h-5 text-yellow-500 cursor-pointer" onClick={confirmLogout} />
+
+
       </SidebarHeader>
 
       <SidebarContent className="flex flex-col h-full">
@@ -70,8 +84,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuButton
                         asChild
                         className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${active === item.title
-                            ? "bg-muted text-primary"
-                            : "hover:bg-amber-300 hover:text-base"
+                          ? "bg-muted text-primary"
+                          : "hover:bg-amber-300 hover:text-base"
                           }`}
                         onClick={() => setActive(item.title)}
                       >

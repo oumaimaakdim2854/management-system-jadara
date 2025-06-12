@@ -13,25 +13,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-// import TableContent from "@/components/table-content"
-import { Outlet, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import { Outlet } from "react-router-dom"
 
 
 export default function Page() {
-
-  const role = localStorage.getItem("role")
-  const navigate = useNavigate()
-
-  // Redirige l’étudiant s’il accède à une route interdite
-  useEffect(() => {
-    if (role === "student") {
-      const path = window.location.pathname
-      if (path.includes("/users")) {
-        navigate("/dashboard/programs")
-      }
-    }
-  }, [role, navigate])
 
 
   return (
@@ -44,14 +29,14 @@ export default function Page() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
-                  Building Your Application
+                <BreadcrumbLink href="#"  className="text-2xl font-bold text-blue-700 hover:text-blue-900 transition">
+                  Welcome To Your Dashboard 
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
+              {/* <BreadcrumbItem>
                 <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
+              </BreadcrumbItem> */}
             </BreadcrumbList>
           </Breadcrumb>
         </header>

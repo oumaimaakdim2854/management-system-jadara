@@ -8,11 +8,14 @@ import TableContent from "./components/ui/table-content"
 import CourseGrid from "./components/ui/program-card"
 import { PrivateRoute } from "./components/PrivateRoute"
 import UpdateUser from "./components/ui/UpdateUser";
-
+import Groups from "./components/ui/group"
+import CalendarWithView from "./components/ui/event" 
+import DashboardHome from "./components/ui/DashboardHome"
 
 function App() {
   return (
-    <Routes>
+    <Routes> 
+
             {/* Redirection racine vers login */}
       <Route path="/" element={<Navigate to="/login" />} />
 
@@ -21,43 +24,28 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
 
       {/* Dashboard étudiant */}
-      <Route
-        path="/student/dashboard"
-        element={
-          <PrivateRoute allowedRoles={["student"]}>
-            <StudentDashboard />
-          </PrivateRoute>
-        }
-      >
-        <Route path="programs" element={<CourseGrid />} />
-      </Route>
+      <Route path="/student/dashboard" element={<PrivateRoute allowedRoles={["student"]}><StudentDashboard /></PrivateRoute>}>
+      <Route path="programs" element={<CourseGrid />} />
+      </ Route>
 
       {/* Dashboard admin */}
-      <Route
-        path="/admin/dashboard"
-        element={
-          <PrivateRoute allowedRoles={["admin"]}>
-            <AdminDashboard />
-          </PrivateRoute>
-        }
-      >
-        <Route path="users" element={<TableContent />} />
-        <Route path="programs" element={<CourseGrid />} />
-        <Route path="users/:id/edit" element={<UpdateUser />} />
-
-        {/* <Route path="events" element={<EventsPage />} /> 
-        <Route path="groups" element={<GroupsPage />} />  */}
-
-      </Route>
+      <Route path="/admin/dashboard" element={<PrivateRoute allowedRoles={["admin"]}><AdminDashboard /></PrivateRoute>}>
+      <Route index element = {<DashboardHome />} />
+      <Route path="users" element={<TableContent />} />
+      <Route path="programs" element={<CourseGrid />} />
+      <Route path="users/:id/edit" element={<UpdateUser />} />
+      <Route path="events" element={<CalendarWithView />} /> 
+      <Route path="groups" element={<Groups />} /> 
+      </ Route>
 
       {/* Interdire /dashboard direct */}
       <Route path="/dashboard" element={<NotFound />} />
 
       {/* Route non trouvée */}
       <Route path="*" element={<NotFound />} />
+
     </Routes>
   )
 }
 
 export default App
-

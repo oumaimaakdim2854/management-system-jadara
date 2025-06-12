@@ -10,7 +10,6 @@ const { validateStudent } = require('../controllers/userController');
 
 router.post("/register" , registerUser);
 router.post('/login', loginUser); 
-// router.get('/me', protect, getUserDetails);
 router.put('/validate/:id', protect, isAdmin, validateStudent);
 
 
