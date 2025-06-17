@@ -2,24 +2,28 @@
 const express = require('express');
 const router = express.Router();
 
-const { getPendingStudents, validateStudent, getAllUsers, deleteUser, updateUser } = require('../controllers/userController');
+const { getPendingStudents,
+    getAllUsers,
+    validateStudent,
+    deleteUser,
+    updateUser } = require('../controllers/userController');
 
 
-const auth = require('../middlewares/authMiddleware');
+const protect = require('../middlewares/authMiddleware');
 const isAdmin = require('../middlewares/roleMiddleware');
 
 // Route protégée pour valider un étudiant
-router.put('/validate-student/:id', auth, isAdmin, validateStudent);
-router.get('/students/pending', auth, isAdmin, getPendingStudents);
+router.put('/validate-student/:id', protect, isAdmin, validateStudent);
+router.get('/students/pending', protect, isAdmin, getPendingStudents);
 
-// Route pour récupérer tous les utilisateurs (admin uniquement)
-router.get("/",  getAllUsers); 
 
 // Route pour supprime tous les utilisateurs (admin uniquement)
-router.delete("/:id", deleteUser);
-
+router.delete("/:id", protect, isAdmin, deleteUser);
 // Route pour modifier tous les utilisateurs (admin uniquement)
-router.put("/users/:id", updateUser); 
+router.put("/:id", protect, isAdmin, updateUser);
+// Route pour récupérer tous les utilisateurs (admin uniquement)
+router.get("/", protect, isAdmin, getAllUsers);
+
 
 module.exports = router;
 

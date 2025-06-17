@@ -13,11 +13,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-// import TableContent from "@/components/table-content"
 import { Outlet } from "react-router-dom"
 
 
 export default function Page() {
+
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -28,22 +29,21 @@ export default function Page() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
-                  Building Your Application
+                <BreadcrumbLink href="#"  className="text-2xl font-bold text-blue-700 hover:text-blue-900 transition">
+                  Welcome To Your Dashboard 
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
+              {/* <BreadcrumbItem>
                 <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
+              </BreadcrumbItem> */}
             </BreadcrumbList>
           </Breadcrumb>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           
-          {/* <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
           <Outlet/>
-          {/* <TableContent/> */}
+          
         </div>
       </SidebarInset>
     </SidebarProvider>

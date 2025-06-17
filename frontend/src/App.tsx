@@ -1,22 +1,50 @@
-
 import { Routes, Route, Navigate } from "react-router-dom"
 import RegisterPage from "./app/Pages/register-page"
 import LoginPage from "./app/Pages/login-page"
-import Page from "./app/Pages/dashboard"
+import AdminDashboard from "./app/Pages/admin-dashboard"
+import StudentDashboard from "./app/Pages/student-dashboard"
+import NotFound from "./app/Pages/not-found"
 import TableContent from "./components/ui/table-content"
-import  CourseGrid  from "./components/ui/program-card"
+import CourseGrid from "./components/ui/program-card"
+import { PrivateRoute } from "./components/PrivateRoute"
+import UpdateUser from "./components/ui/UpdateUser";
+import Groups from "./components/ui/group"
+import CalendarWithView from "./components/ui/event" 
+import DashboardHome from "./components/ui/DashboardHome"
 
 function App() {
   return (
-    <Routes>
+    <Routes> 
+
+            {/* Redirection racine vers login */}
       <Route path="/" element={<Navigate to="/login" />} />
+
+            {/* Pages publiques */}
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/dashboard" element={<Page/>}>
-      <Route path = "/dashboard/users" element={<TableContent/>}/>
-      <Route path = "/dashboard/programs" element={<CourseGrid/>}/>
-      </Route>
-    </Routes> 
+
+      {/* Dashboard étudiant */}
+      <Route path="/student/dashboard" element={<PrivateRoute allowedRoles={["student"]}><StudentDashboard /></PrivateRoute>}>
+      <Route path="programs" element={<CourseGrid />} />
+      </ Route>
+
+      {/* Dashboard admin */}
+      <Route path="/admin/dashboard" element={<PrivateRoute allowedRoles={["admin"]}><AdminDashboard /></PrivateRoute>}>
+      <Route index element = {<DashboardHome />} />
+      <Route path="users" element={<TableContent />} />
+      <Route path="programs" element={<CourseGrid />} />
+      <Route path="users/:id/edit" element={<UpdateUser />} />
+      <Route path="events" element={<CalendarWithView />} /> 
+      <Route path="groups" element={<Groups />} /> 
+      </ Route>
+
+      {/* Interdire /dashboard direct */}
+      <Route path="/dashboard" element={<NotFound />} />
+
+      {/* Route non trouvée */}
+      <Route path="*" element={<NotFound />} />
+
+    </Routes>
   )
 }
 
